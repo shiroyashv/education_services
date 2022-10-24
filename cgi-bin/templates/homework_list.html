@@ -1,0 +1,79 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+      <h3>Домашние задания</h3>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-10">
+    <div class="list-group">
+    <table>
+    <tr>
+      <th>Номер задания</th>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Максимальный балл</th>
+      <th>Дедлайн</th>
+      <th>Удалить</th>
+    </tr>
+    <TMPL_LOOP NAME=HOMEWORK_LIST>
+    <tr>
+      <td><TMPL_VAR NAME=NUMBER></td>
+      <td><TMPL_VAR NAME=TITLE></td>
+      <td><TMPL_VAR NAME=DESCRIPTION></td>
+      <td><TMPL_VAR NAME=MAX_SCORE></td>
+      <td><TMPL_VAR NAME=DEADLINE></td>
+      <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovHomework&event=del&number=<TMPL_VAR NAME=NUMBER>">Удалить</a></td>
+    </tr>
+    </TMPL_LOOP>
+    </table>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+      <h3>Добавить задание</h3>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <TMPL_IF MESSAGE>
+    <div class="alert alert-danger" role="alert">
+        <TMPL_VAR NAME=MESSAGE>
+    </div>
+    </TMPL_IF>
+  <form action="/cgi-bin/balandov_dsp.pl" method="post">
+    <p><input type="hidden" name="cl" value="BalandovHomework"></p>
+    <p><input type="hidden" name="event" value="add"></p>
+    <div class="form-group">
+      <label for="title">Номер задание</label>
+      <input name="number" class="form-control" id="title">
+    </div>
+    <div class="form-group">
+      <label for="title">Название</label>
+      <input name="title" class="form-control" id="title">
+    </div>
+    <div class="form-group">
+      <label for="title">Описание</label>
+      <textarea name="description" class="form-control" id="title"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="title">Максимальный балл</label>
+      <input type="number" name="max_score" class="form-control" id="title">
+    </div>
+    <div class="form-group">
+      <label for="title">Срок сдачи</label>
+      <input type="datetime-local" name="deadline" class="form-control" id="title">
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+  </form>
+    </div>
+</div>
+
+<TMPL_INCLUDE NAME="footer.tmpl">
