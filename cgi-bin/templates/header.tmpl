@@ -1,39 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=cp1251" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="cp1251">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="cgi-bin/static/custom.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/static/custom.css">
 
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="/cgi-bin/static/logo.png">
+    <link rel="icon" type="image/png" href="/static/logo.png">
     <title>Группы для обучения!</title>
   </head>
   <body>
-    <nav id="topNav" class="navbar navbar-expand-md navbar-light">
-    <div class="container">
+
+    <nav class="navbar sticky-top navbar-expand-md" style="background-color: #00BFFF;">
+    <div class="container-fluid">
       <a class="navbar-brand" href="http://webprog4x27.trudogolik.ru">
-        <img src="/cgi-bin/static/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Nick's Logo">
+        <img src="/static/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Nick's Logo">
         <span>Главная</span>
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a href="/cgi-bin/balandov_dsp.pl?cl=BalandovGroup&event=show_list">Группы </a>
+            <a class="nav-link" href="/cgi-bin/balandov_dsp.pl?cl=BalandovGroup&event=show_list">Группы</a>
           </li>
           <li class="nav-item">
-            <a href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=show_list">Участники </a>
+            <a class="nav-link" href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=show_list">Участники</a>
           </li>
           <li class="nav-item">
-            <a href="/cgi-bin/balandov_dsp.pl?cl=BalandovHomework&event=show_list">Домашние задания </a>
+            <a class="nav-link" href="/cgi-bin/balandov_dsp.pl?cl=BalandovHomework&event=show_list">Домашние задания</a>
           </li>
           <li class="nav-item">
-            <a href="/cgi-bin/balandov_dsp.pl?cl=BalandovEvaluation&event=show_list">Оценки </a>
+            <a class="nav-link" href="/cgi-bin/balandov_dsp.pl?cl=BalandovEvaluation&event=show_list">Оценки</a>
           </li>
         </ul>
       </div>

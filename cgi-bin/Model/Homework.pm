@@ -3,54 +3,40 @@ package Model::Homework;
 
 use 5.010;
 use strict;
-use DBHandle;
-use singleton_cgi;
+use Services::DBHandle;
 
-# Подключение к БД
-my $dbh = DBHandle->new();
-$dbh = $dbh->connect_db();
+sub new
+{
+  my $class = shift;
+  my $dbh = Services::DBHandle->new();
 
-# Создаем объект класса и парсим все параметры
-my $io_cgi = singleton_cgi->new();
-$io_cgi = $io_cgi->get_cgi_params();
-
-my $number = $io_cgi->param('number');
-my $title = $io_cgi->param('title');
-my $description = $io_cgi->param('description');
-my $max_score = $io_cgi->param('max_score');
-my $deadline = $io_cgi->param('deadline');
+  bless { dbh => $dbh->connect_db() }, $class;
+}
 
 # Возвращаем список заданий из БД
 sub get_homework_list
 {
-  my $sth = $dbh->prepare("SELECT number, title, description, max_score, deadline
-                           FROM webprog4x27_homework ORDER BY number");
-  $sth->execute() or die $DBI::errstr;
+  my $this = shift;
 
-  my $homework_list = [];
+  my $sql = "SELECT number, title, description, max_score, deadline
+             FROM webprog4x27_homework ORDER BY number";
+  my $homework_list = $this->{dbh}->selectall_arrayref( $sql, { Slice => {} } );
 
-  while ( my @row = $sth->fetchrow_array() )
-  {
-    my ($number, $title, $description, $max_score, $deadline) = @row;
-    my $homewok_info = {
-      NUMBER => $number,
-      TITLE => $title,
-      DESCRIPTION => $description,
-      MAX_SCORE => $max_score,
-      DEADLINE => $deadline,
-    };
-    push @{$homework_list}, $homewok_info;
-  }
-  $sth->finish();
   return $homework_list;
 }
 
 # Добовляет задание в БД
 sub add_homework
 {
+  my ($this, $params) = @_;
+  my $number = $params->{number};
+  my $title = $params->{title};
+  my $description = $params->{description};
+  my $max_score = $params->{max_score};
+  my $deadline = $params->{deadline};
   my $message;
 
-  if ( is_homework_exist($number) )
+  if ( is_homework_exist( { this => $this, number => $number } ) )
   {
     $message = "Задание с таким номером уже существует.";
   }
@@ -60,22 +46,25 @@ sub add_homework
   }
   else
   {
-    my $sth = $dbh->prepare("INSERT INTO webprog4x27_homework
-                             SET number=?, title=?, description=?, max_score=?, deadline=?");
-    $sth->execute($number, $title, $description, $max_score, $deadline) or die $DBI::errstr;
+    my $sth = $this->{dbh}->prepare("INSERT INTO webprog4x27_homework
+                                     SET number=?, title=?, description=?, max_score=?, deadline=?");
+    $sth->execute( $number, $title, $description, $max_score, $deadline ) or die $DBI::errstr;
     $sth->finish();
   }
+
   return $message;
 }
 
 # Удаляет задание из БД
 sub delete_homework
 {
+  my ($this, $params) = @_;
+  my $number = $params->{number};
   my $message;
 
-  if ( is_homework_exist($number) )
+  if ( is_homework_exist( { this => $this, number => $number } ) )
   {
-    my $sth = $dbh->prepare("DELETE FROM `webprog4x27_homework` WHERE number=?");
+    my $sth = $this->{dbh}->prepare("DELETE FROM `webprog4x27_homework` WHERE number=?");
     $sth->execute($number) or die $DBI::errstr;
     $sth->finish();
   }
@@ -83,14 +72,20 @@ sub delete_homework
   {
     $message = "Группа уже удалена.";
   }
+
   return $message;
 }
 
 # Проверяет есть ли задание в БД
 sub is_homework_exist
 {
-  my $sth = $dbh->prepare("SELECT id FROM webprog4x27_homework WHERE number=?");
+  my ($params) = @_;
+  my $this = $params->{this};
+  my $number = $params->{number};
+
+  my $sth = $this->{dbh}->prepare("SELECT id FROM webprog4x27_homework WHERE number=?");
   $sth->execute($number) or die $DBI::errstr;
+
   return 1 if $sth->fetchrow_array();
   return 0;
 }

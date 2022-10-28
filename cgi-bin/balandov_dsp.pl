@@ -1,34 +1,33 @@
 #!/usr/bin/perl
 use 5.010;
 use strict;
-BEGIN{unshift @INC, ("./", "./services", "./Frame")};
-use DBHandle;
-use singleton_cgi;
+BEGIN{unshift @INC, "./"};
 use HTML::Template;
+use Services::DBHandle;
+use Services::CGIParam;
 
 eval
 {
   # Подключение к БД
-  my $dbh = DBHandle->new();
-  $dbh = $dbh->connect_db();
+  my $dbh = Services::DBHandle->new();
+  $dbh->connect_db();
 
   # Создаем объект класса и парсим параметры
-  my $io_cgi = singleton_cgi->new();
-  $io_cgi = $io_cgi->get_cgi_params();
-
-  my $cl = $io_cgi->param('cl');
-  my $event = $io_cgi->param('event');
+  my $cgi = Services::CGIParam->new();
+  my $cl = $cgi->get_cgi_param()->{cl};
+  my $event = $cgi->get_cgi_param()->{event};
 
   # Создаем объект класса и вызываем метод
-  require $cl.'.pm';
+  require './Frame/' . $cl . '.pm';
   my $object = $cl->new();
   $object->$event();
 
   # Отключение от БД
-  $dbh->disconnect();
+  $dbh->disconnect_db();
 };
 if ($@)
 {
-  warn "Что-то пошло не так! " . $@;
+  print "Content-Type: text/html\n";
+  print "Charset: windows-1251\n\n";
+  print "Что-то пошло не так... " . $@;
 }
-

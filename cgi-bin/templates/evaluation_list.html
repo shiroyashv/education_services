@@ -8,26 +8,31 @@
 
 <div class="row justify-content-center mt-5">
   <div class="col-md-10">
-    <div class="list-group">
-    <table>
-    <tr>
-      <th>Номер задания</th>
-      <th>Название</th>
-      <th>id студента</th>
-      <th>Имя</th>
-      <th>Оценка</th>
-    </tr>
-    <TMPL_LOOP NAME=EVALUATION_LIST>
-    <tr>
-      <td><TMPL_VAR NAME=HOMEWORK_ID></td>
-      <td><TMPL_VAR NAME=HOMEWORK_TITLE></td>
-      <td><TMPL_VAR NAME=STUDENT_ID></td>
-      <td><TMPL_VAR NAME=STUDENT_NAME></td>
-      <td><TMPL_VAR NAME=SCORE></td>
-    </tr>
-    </TMPL_LOOP>
+
+    <table class="table table-borderless table-hover caption-top">
+      <caption><h3>Список оценок</h3></caption>
+      <thead class="table-light">
+        <tr>
+          <th>Номер задания</th>
+          <th>Название</th>
+          <th>id студента</th>
+          <th>Имя</th>
+          <th>Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+        <TMPL_LOOP NAME=EVALUATION_LIST>
+        <tr>
+          <td><TMPL_VAR NAME=HOMEWORK_ID></td>
+          <td><TMPL_VAR NAME=TITLE></td>
+          <td><TMPL_VAR NAME=STUDENT_ID></td>
+          <td><TMPL_VAR NAME=FIRST_NAME></td>
+          <td><TMPL_VAR NAME=SCORE></td>
+        </tr>
+        </TMPL_LOOP>
+      </tbody>
     </table>
-    </div>
+
   </div>
 </div>
 

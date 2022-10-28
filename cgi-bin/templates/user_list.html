@@ -1,31 +1,30 @@
 <TMPL_INCLUDE NAME="header.tmpl">
 
 <div class="row justify-content-center mt-5">
-  <div class="col-md-5">
-      <h3>Участники</h3>
-  </div>
-</div>
-
-<div class="row justify-content-center mt-5">
   <div class="col-md-10">
-    <div class="list-group">
-    <table>
-    <tr>
-      <th>id</th>
-      <th>Имя</th>
-      <th>Общий балл</th>
-      <th>Удалить</th>
-    </tr>
-    <TMPL_LOOP NAME=USER_LIST>
-    <tr>
-      <td><TMPL_VAR NAME=ID></td>
-      <td><TMPL_VAR NAME=FIRST_NAME></td>
-      <td><TMPL_VAR NAME=TOTAL_SCORE></td>
-      <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=del&user_id=<TMPL_VAR NAME=ID>">Удалить</a></td>
-    </tr>
-    </TMPL_LOOP>
+
+    <table class="table table-borderless table-hover caption-top">
+      <caption><h3>Список пользователей</h3></caption>
+      <thead class="table-light">
+        <tr>
+          <th>id</th>
+          <th>Имя</th>
+          <th>Общий балл</th>
+          <th>Удалить</th>
+        </tr>
+      </thead>
+      <tbody>
+        <TMPL_LOOP NAME=USER_LIST>
+        <tr>
+          <td><TMPL_VAR NAME=ID></td>
+          <td><TMPL_VAR NAME=FIRST_NAME></td>
+          <td><TMPL_VAR NAME=TOTAL_SCORE></td>
+          <td><a class="btn btn-danger" href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=del&user_id=<TMPL_VAR NAME=ID>" role="button">Удалить</a></td>
+        </tr>
+        </TMPL_LOOP>
+      </tbody>
     </table>
-    </div>
+
   </div>
 </div>
 
@@ -47,23 +46,25 @@
   <form action="/cgi-bin/balandov_dsp.pl" method="post">
     <p><input type="hidden" name="cl" value="BalandovUser"></p>
     <p><input type="hidden" name="event" value="add"></p>
-    <div class="form-group">
+    <div class="mb-3">
       <label for="title">Id</label>
-      <input name="user_id" class="form-control" id="title">
+      <input name="user_id" class="form-control" id="title" placeholder="id пользователя в telegram">
     </div>
-    <div class="form-group">
+    <div class="mb-3">
       <label for="title">Имя</label>
-      <input name="first_name" class="form-control" id="title">
+      <input name="first_name" class="form-control" id="title" placeholder="Имя пользователя">
     </div>
-    <div class="form-group">
+    <div class="mb-3">
       <label for="title">Группа</label>
-      <select name="group_id" class="form-control" id="title">
+      <select name="group_id" class="form-control" id="title" placeholder="Выберите группу">
         <TMPL_LOOP NAME=GROUP_LIST>
           <option value="<TMPL_VAR NAME=ID>"><TMPL_VAR NAME=TITLE></option>
         </TMPL_LOOP>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
   </form>
     </div>
 </div>

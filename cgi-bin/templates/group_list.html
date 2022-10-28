@@ -8,28 +8,33 @@
 
 <div class="row justify-content-center mt-5">
   <div class="col-md-10">
-    <div class="list-group">
-      <table>
-      <tr>
-        <th>id</th>
-        <th>Название</th>
-        <th>Участники</th>
-        <th>Домашние задания</th>
-        <th>Результаты</th>
-        <th>Удалить</th>
-      </tr>
-      <TMPL_LOOP NAME=GROUP_LIST>
-      <tr>
-        <td><TMPL_VAR NAME=ID></td>
-        <td><TMPL_VAR NAME=TITLE></td>
-        <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=show_list&group_id=<TMPL_VAR NAME=ID>">Участники</a></td>
-        <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovHomework&event=show_list">Домашние задания</a></td>
-        <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovEvaluation&event=show_list&group_id=<TMPL_VAR NAME=ID>">Результаты</a></td>
-        <td><a href="/cgi-bin/balandov_dsp.pl?cl=BalandovGroup&event=del&group_id=<TMPL_VAR NAME=ID>">Удалить</a></td>
-      </tr>
-      </TMPL_LOOP>
+
+      <table class="table table-borderless table-hover caption-top">
+        <caption><h3>Список групп</h3></caption>
+        <thead class="table-light">
+          <tr>
+            <th>id</th>
+            <th>Название</th>
+            <th>Участники</th>
+            <th>Домашние задания</th>
+            <th>Результаты</th>
+            <th>Удалить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <TMPL_LOOP NAME=GROUP_LIST>
+          <tr>
+            <td><TMPL_VAR NAME=ID></td>
+            <td><TMPL_VAR NAME=TITLE></td>
+            <td><a class="btn btn-info" href="/cgi-bin/balandov_dsp.pl?cl=BalandovUser&event=show_list&group_id=<TMPL_VAR NAME=ID>" role="button">Участники</a></td>
+            <td><a class="btn btn-info" href="/cgi-bin/balandov_dsp.pl?cl=BalandovHomework&event=show_list" role="button">Домашние задания</a></td>
+            <td><a class="btn btn-info" href="/cgi-bin/balandov_dsp.pl?cl=BalandovEvaluation&event=show_list&group_id=<TMPL_VAR NAME=ID>" role="button">Результаты</a></td>
+            <td><a class="btn btn-danger" href="/cgi-bin/balandov_dsp.pl?cl=BalandovGroup&event=del&group_id=<TMPL_VAR NAME=ID>" role="button">Удалить</a></td>
+          </tr>
+          </TMPL_LOOP>
+        </tbody>
       </table>
-    </div>
+
   </div>
 </div>
 
@@ -51,15 +56,18 @@
   <form action="/cgi-bin/balandov_dsp.pl" method="post">
     <p><input type="hidden" name="cl" value="BalandovGroup"></p>
     <p><input type="hidden" name="event" value="add"></p>
-    <div class="form-group">
+    <div class="mb-3">
       <label for="title">Id</label>
-      <input name="group_id" class="form-control" id="title">
+      <input name="group_id" class="form-control" id="title" placeholder="id группы в telegram">
     </div>
-    <div class="form-group">
+    <div class="mb-3">
       <label for="title">Название</label>
-      <input name="title" class="form-control" id="title">
+      <input name="title" class="form-control" id="title" placeholder="Название группы">
     </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
+
   </form>
     </div>
 </div>
