@@ -1,6 +1,6 @@
 # education services
 
-### Технологии
+### РўРµС…РЅРѕР»РѕРіРёРё
 
 - Perl
 - MySQL
