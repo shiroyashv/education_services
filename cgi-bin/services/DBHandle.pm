@@ -18,9 +18,9 @@ sub new
 sub connect_db
 {
   my $attr = {PrintError => 0, RaiseError => 0};
-  my $data_source = "DBI:mysql:webprog4x27_tgbot:localhost";
-  my $username = "webprog4x27_tgbot";
-  my $password = "bAaAsH7KNtUFJprE";
+  my $data_source = $DATA_SOURCE;
+  my $username = $USERNAME;
+  my $password = $PASSWORD;
 
   $singleton->{dbh} ||= DBI->connect($data_source, $username, $password, $attr) or die $DBI::errstr;
   $singleton->{dbh}->do('SET NAMES cp1251');

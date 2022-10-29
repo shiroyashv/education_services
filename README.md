@@ -1,1 +1,8 @@
-# telegram_bot
+# education services
+
+### Технологии
+
+- Perl
+- MySQL
+- TelegramAPI
+- CGI
